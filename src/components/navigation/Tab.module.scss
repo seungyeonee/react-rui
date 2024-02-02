@@ -1,0 +1,10 @@
+.tab {
+  background-color: transparent;
+  border: 0;
+  padding: 6px 10px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  &.active {
+    color: skyblue;
+  }
+}

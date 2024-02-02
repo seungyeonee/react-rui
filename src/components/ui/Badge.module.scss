@@ -1,0 +1,20 @@
+.wrapper {
+  position: relative;
+  display: inline-block;
+  .badge {
+    position: absolute;
+    left: calc(100% - 13px);
+    top: -9px;
+    display: block;
+    padding: 0.1rem 0.6rem;
+    border-radius: 14px;
+    -webkit-border-radius: 14px;
+    -moz-border-radius: 14px;
+    -ms-border-radius: 14px;
+    -o-border-radius: 14px;
+    background-color: red;
+    color: #fff;
+    font-weight: bold;
+    font-size: 0.8rem;
+  }
+}
