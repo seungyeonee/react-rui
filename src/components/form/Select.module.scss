@@ -1,0 +1,96 @@
+.wrapper {
+  position: relative;
+  display: inline-block;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  & + button {
+    margin-left: 5px;
+  }
+  .combobox {
+    position: relative;
+    width: fit-content;
+    min-width: 200px;
+    font-size: 1rem;
+    padding: 0.6rem 0.7rem;
+    text-align: left;
+    height: 40px;
+    border: 2px solid #ddd;
+    cursor: pointer;
+    border-radius: 0.4rem;
+    -webkit-border-radius: 0.4rem;
+    -moz-border-radius: 0.4rem;
+    -ms-border-radius: 0.4rem;
+    -o-border-radius: 0.4rem;
+    &.open {
+      filter: brightness(95%);
+      -webkit-filter: brightness(95%);
+      color: #3748e0;
+      border-color: #3748e0;
+    }
+    &:hover {
+      filter: brightness(95%);
+      -webkit-filter: brightness(95%);
+    }
+    &::after {
+      position: absolute;
+      content: "";
+      right: 12px;
+      top: 50%;
+      width: 12px;
+      height: 8px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-image: url(../../assets/icons/arrow.svg);
+      transform-origin: top center;
+      transform: translateY(-50%);
+      -webkit-transform: translateY(-50%);
+      -moz-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      -o-transform: translateY(-50%);
+    }
+    &.open {
+      color: #3748e0;
+      border-color: #3748e0;
+      &::after {
+        transform: rotate(-180deg) translateY(-50%);
+        -webkit-transform: rotate(-180deg) translateY(-50%);
+        -moz-transform: rotate(-180deg) translateY(-50%);
+        -ms-transform: rotate(-180deg) translateY(-50%);
+        -o-transform: rotate(-180deg) translateY(-50%);
+      }
+    }
+  }
+
+  .options {
+    position: absolute;
+    left: 0;
+    top: calc(100% + 5px);
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    border: 1px solid #c0c0c0;
+    border-radius: 0.4rem;
+    -webkit-border-radius: 0.4rem;
+    -moz-border-radius: 0.4rem;
+    -ms-border-radius: 0.4rem;
+    -o-border-radius: 0.4rem;
+    overflow: hidden;
+    > li {
+      border: 0;
+      font-size: 1rem;
+      padding: 0.6rem 0.7rem;
+      cursor: pointer;
+      background-color: #fff;
+      &:hover {
+        filter: brightness(95%);
+        -webkit-filter: brightness(95%);
+      }
+    }
+  }
+}

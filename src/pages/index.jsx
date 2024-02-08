@@ -8,12 +8,33 @@ import {
   TabPanel,
   FormControl,
   TextField,
+  Select,
+  Box,
+  Tooltip,
 } from "../components";
+
+const mockData = [
+  {
+    label: "Option 1",
+    value: "a",
+  },
+  {
+    label: "Option 2",
+    value: "v",
+  },
+  {
+    label: "Option 3",
+    value: "b",
+  },
+];
 
 export default function MainPage() {
   const [activeTabName, setActiveTabName] = useState("tab1");
   const [count, setCount] = useState(2);
+  const [value, setValue] = useState();
   const inputRef = useRef();
+  const selectRef = useRef();
+
   return (
     <>
       <Container>
@@ -101,6 +122,53 @@ export default function MainPage() {
             ref={inputRef}
           />
         </FormControl>
+        <hr />
+        <h3>Box + Select + Button</h3>
+        <Box>
+          <Select
+            data={mockData}
+            defaultValue={1}
+            value={value}
+            onChange={setValue}
+            ref={selectRef}
+          />
+          <Button
+            onClick={() => {
+              alert(selectRef.current.value, value);
+            }}
+          >
+            SUBMIT
+          </Button>
+        </Box>
+        <hr />
+        <h3>Tooltip</h3>
+        <Box wrap>
+          <Tooltip
+            label="label Text"
+            position="top"
+            contents={<div>긴 툴팁 컨텐츠는 이렇게 표시됩니다.</div>}
+          />
+          <Tooltip
+            label="label Text"
+            position="bottom"
+            contents={<div>툴팁 컨텐츠</div>}
+          />
+          <Tooltip
+            label="label Text"
+            position="bottom"
+            contents={<div>툴팁 컨텐츠</div>}
+          />
+          <Tooltip
+            label="label Text"
+            position="bottom"
+            contents={<div>긴 툴팁 컨텐츠는 이렇게 표시됩니다.</div>}
+          />
+          <Tooltip
+            label="label Text"
+            position="bottom"
+            contents={<div>툴팁 컨텐츠</div>}
+          />
+        </Box>
       </Container>
     </>
   );
