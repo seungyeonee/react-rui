@@ -27,8 +27,7 @@
     &.open {
       filter: brightness(95%);
       -webkit-filter: brightness(95%);
-      color: #3748e0;
-      border-color: #3748e0;
+      border-color: #8c7ce9;
     }
     &:hover {
       filter: brightness(95%);
@@ -52,8 +51,7 @@
       -o-transform: translateY(-50%);
     }
     &.open {
-      color: #3748e0;
-      border-color: #3748e0;
+      border-color: #8c7ce9;
       &::after {
         transform: rotate(-180deg) translateY(-50%);
         -webkit-transform: rotate(-180deg) translateY(-50%);

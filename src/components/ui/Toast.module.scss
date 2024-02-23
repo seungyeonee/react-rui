@@ -1,0 +1,72 @@
+.toast {
+  position: fixed;
+  left: 50%;
+  display: inline-flex;
+  align-items: center;
+  width: max-content;
+  max-width: 200px;
+  padding: 0.4rem 0.8rem;
+  border-radius: 1rem;
+  -webkit-border-radius: 1rem;
+  -moz-border-radius: 1rem;
+  -ms-border-radius: 1rem;
+  -o-border-radius: 1rem;
+  background-color: #333;
+  color: #fff;
+  font-weight: bold;
+  font-size: 0.8rem;
+  z-index: 1;
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  opacity: 0;
+  animation: fadeIn 0.3s forwards linear;
+  -webkit-animation: fadeIn 0.3s forwards linear;
+  button {
+    width: 20px;
+    height: 20px;
+    margin-left:8px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border: 0;
+    background-color: #999;
+  }
+  &.bottom {
+    bottom: 10px;
+  }
+  &.top {
+    top: 10px;
+  }
+  &.fade-out {
+    animation: fadeOut 0.3s forwards linear;
+    -webkit-animation: fadeOut 0.3s forwards linear;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

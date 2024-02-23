@@ -11,6 +11,7 @@ import {
   Select,
   Box,
   Tooltip,
+  Toast,
 } from "../components";
 
 const mockData = [
@@ -32,14 +33,23 @@ export default function MainPage() {
   const [activeTabName, setActiveTabName] = useState("tab1");
   const [count, setCount] = useState(2);
   const [value, setValue] = useState();
+  const [text, setText] = useState("");
+  const [text2, setText2] = useState("");
+  const [isFocus, setIsFocus] = useState(false);
+  const [isOpenToast, setIsOpenToast] = useState(false);
   const inputRef = useRef();
+  const inputRef2 = useRef();
   const selectRef = useRef();
 
+  // useEffect(() => {
+  //   console.log(inputRef);
+  // }, [inputRef]);
   return (
     <>
       <Container>
         <h3>Button</h3>
         <Button>버튼</Button>
+        <Button line>버튼</Button>
 
         <hr />
         <h3>Badge + Button</h3>
@@ -111,15 +121,41 @@ export default function MainPage() {
         </TabPanel>
         <hr />
         <h3>FormControl, TextField</h3>
-        <FormControl>
+        <FormControl
+          label="labelText"
+          icon="close"
+          iconPosition="right"
+          isFocus={
+            (!(text || text2) && isFocus) || text.length > 0 || text2.length > 0
+          }
+          onFocus={() => {
+            setIsFocus(true);
+          }}
+          onBlur={() => {
+            setIsFocus(false);
+          }}
+          helperText="helperText"
+        >
           <TextField
-            label="labelText"
+            name="text1"
             type="text"
-            helperText="helperText"
-            icon="close"
-            iconPosition="right"
             maxLength={6}
+            value={text}
+            onChange={(e) => {
+              setText(e.target.value);
+            }}
             ref={inputRef}
+          />
+          <span>-</span>
+          <TextField
+            name="text2"
+            type="text"
+            maxLength={6}
+            value={text2}
+            onChange={(e) => {
+              setText2(e.target.value);
+            }}
+            ref={inputRef2}
           />
         </FormControl>
         <hr />
@@ -142,32 +178,33 @@ export default function MainPage() {
         </Box>
         <hr />
         <h3>Tooltip</h3>
-        <Box wrap>
+        <h4>{`label="label Text1" position="top" contents={<div>??</div>}`}</h4>
+        <Box>
           <Tooltip
-            label="label Text"
+            label="label Text1"
             position="top"
-            contents={<div>긴 툴팁 컨텐츠는 이렇게 표시됩니다.</div>}
+            contents={<div>Tooltip Contents.</div>}
           />
-          <Tooltip
-            label="label Text"
-            position="bottom"
-            contents={<div>툴팁 컨텐츠</div>}
-          />
-          <Tooltip
-            label="label Text"
-            position="bottom"
-            contents={<div>툴팁 컨텐츠</div>}
-          />
-          <Tooltip
-            label="label Text"
-            position="bottom"
-            contents={<div>긴 툴팁 컨텐츠는 이렇게 표시됩니다.</div>}
-          />
-          <Tooltip
-            label="label Text"
-            position="bottom"
-            contents={<div>툴팁 컨텐츠</div>}
-          />
+        </Box>
+        <hr />
+        <h3>Toast</h3>
+        <h4>{`position="bottom" timer={3000}`}</h4>
+        <Box>
+          <Button
+            onClick={() => {
+              !isOpenToast && setIsOpenToast(true);
+            }}
+          >
+            Toast!
+          </Button>
+          {isOpenToast && (
+            <Toast
+              label="label Text1"
+              position="bottom"
+              timer={3000}
+              onChange={setIsOpenToast}
+            />
+          )}
         </Box>
       </Container>
     </>

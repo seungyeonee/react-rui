@@ -5,14 +5,18 @@ import { forwardRef, useEffect, useState } from "react";
 
 const TextField = forwardRef(function TextField(
   {
+    line,
     label,
+    value,
     required,
     helperText,
     icon,
     iconPosition,
     disabled,
     onFocus,
-    onBlur,
+    error,
+    errorMessage,
+    spacing,
     ...rest
   },
   ref
@@ -23,13 +27,8 @@ const TextField = forwardRef(function TextField(
   const handleFocus = () => {
     if (disabled) return;
     setIsFocus(true);
-    ref.current.focus();
+    ref?.current.focus();
     onFocus && onFocus();
-  };
-
-  const handleBlur = () => {
-    setIsFocus(false);
-    onBlur && onBlur();
   };
 
   const handleKeyUp = (event) => {
@@ -49,10 +48,11 @@ const TextField = forwardRef(function TextField(
   return (
     <>
       <div
-        className={`${css.wrapper} ${isFocus ? css.active : ""} ${
-          disabled ? css.disabled : ""
-        }`}
+        className={`${css.wrapper} ${line ? css.line : ""} ${
+          isFocus ? css.active : ""
+        } ${disabled ? css.disabled : ""}`}
         onClick={handleFocus}
+        style={spacing && { marginTop: spacing }}
       >
         {icon && iconPosition === "left" && (
           <span className={`${css.icon} ${css.left}`} />
@@ -62,7 +62,7 @@ const TextField = forwardRef(function TextField(
             className={`${css.label} ${
               isFocus
                 ? css.active
-                : !isFocus && ref?.current?.value.length > 0
+                : !isFocus && value.length > 0
                 ? `${css.active} ${css.normal}`
                 : ""
             } ${icon && iconPosition && css[iconPosition]}`}
@@ -72,9 +72,14 @@ const TextField = forwardRef(function TextField(
           </label>
         )}
         <input
-          onBlur={handleBlur}
           className={icon && iconPosition && css[iconPosition]}
           disabled={disabled}
+          onFocus={() => {
+            setIsFocus(true);
+          }}
+          onBlur={() => {
+            setIsFocus(false);
+          }}
           ref={ref}
           {...rest}
         />
@@ -83,19 +88,28 @@ const TextField = forwardRef(function TextField(
         )}
       </div>
       {helperText && <span className={css.help}>{helperText}</span>}
+      {error && errorMessage && <p className={css.error}>{errorMessage}</p>}
     </>
   );
 });
 
 TextField.propTypes = {
+  line: PropTypes.bool,
   label: PropTypes.string,
+  value: PropTypes.any,
   required: PropTypes.bool,
   helperText: PropTypes.string,
   icon: PropTypes.string,
   iconPosition: PropTypes.oneOf(["left", "right"]),
   disabled: PropTypes.bool,
   onFocus: PropTypes.any,
-  onBlur: PropTypes.any,
+  error: PropTypes.bool,
+  errorMessage: PropTypes.string,
+  spacing: PropTypes.number,
+};
+
+TextField.defaultProps = {
+  line: false,
 };
 
 export default TextField;

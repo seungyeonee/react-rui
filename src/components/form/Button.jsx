@@ -10,11 +10,12 @@ export default function Button({
   disabled,
   children,
   onClick,
-  ...props
+  flex,
+  spacing,
+  ...rest
 }) {
   const Wrapper = slots;
-  const handleClick = (e) => {
-    e.preventDefault();
+  const handleClick = () => {
     if (disabled) return;
     if (href) {
       window.open(
@@ -32,14 +33,14 @@ export default function Button({
   };
   return (
     <Wrapper
-      {...props}
+      {...rest}
       className={`${css.btn} ${disabled ? css.disabled : ""} ${
         size ? css[size] : ""
       } ${line && css.line}`}
       type={type}
-      role="button"
       onClick={handleClick}
       disabled={disabled}
+      style={{ flex: flex && flex, marginTop: spacing && spacing }}
     >
       {children}
     </Wrapper>
@@ -55,6 +56,8 @@ Button.propTypes = {
   disabled: PropTypes.bool,
   line: PropTypes.bool,
   onClick: PropTypes.func,
+  flex: PropTypes.number,
+  spacing: PropTypes.number,
 };
 
 Button.defaultProps = {

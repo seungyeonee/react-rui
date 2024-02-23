@@ -1,6 +1,7 @@
 // ui
 export { default as Badge } from "./ui/Badge";
 export { default as Tooltip } from "./ui/Tooltip";
+export { default as Toast } from "./ui/Toast";
 
 // layout
 export { default as Container } from "./layout/Container";

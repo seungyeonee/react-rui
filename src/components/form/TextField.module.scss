@@ -1,13 +1,22 @@
 .wrapper {
-  width: calc(100% - 4px);
+  width: 100%;
   position: relative;
-  border: 2px solid #ddd;
   border-radius: 0.5rem;
   -webkit-border-radius: 0.5rem;
   -moz-border-radius: 0.5rem;
   -ms-border-radius: 0.5rem;
   -o-border-radius: 0.5rem;
   overflow: hidden;
+  &.line {
+    border: 2px solid #ddd;
+    &.active {
+      border-color: #8c7ce9;
+      background-color: #f3f3f3;
+    }
+    &:hover {
+      background-color: #f3f3f3;
+    }
+  }
   .label {
     position: absolute;
     left: 0.7rem;
@@ -26,7 +35,7 @@
       left: 2.5rem;
     }
     &.active {
-      color: #3748e0;
+      color: #8c7ce9;
       font-size: 0.8rem;
       top: 0.25rem;
       transform: translateY(0);
@@ -45,10 +54,14 @@
     background-color: transparent;
     padding: 1.5rem 0.7rem 0.6rem;
     outline: 0;
+    width: calc(100% - 1.4rem);
+    line-height: 1.2rem;
     &.left {
+      width: calc(100% - 3.2rem);
       padding: 1.5rem 0.7rem 0.6rem 2.5rem;
     }
     &.right {
+      width: calc(100% - 3.2rem);
       padding: 1.5rem 2.5rem 0.6rem 0.7rem;
     }
   }
@@ -77,13 +90,7 @@
       right: 10px;
     }
   }
-  &.active {
-    border-color: #3748e0;
-    background-color: #f3f3f3;
-  }
-  &:hover {
-    background-color: #f3f3f3;
-  }
+
   &.disabled {
     input {
       background-color: #eee;
@@ -97,4 +104,11 @@
 .help {
   color: #999;
   font-size: 0.75rem;
+}
+
+.error {
+  margin: 4px 0 0;
+  color: #da2828;
+  font-size: 0.75rem;
+  letter-spacing: -0.1rem;
 }
