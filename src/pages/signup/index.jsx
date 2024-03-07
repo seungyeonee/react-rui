@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Box, Button, Container, FormControl, TextField } from "../components";
+import { Box, Button, Container, FormControl, TextField } from "../../components";
 import { useEffect, useRef } from "react";
 
 const SignupPage = () => {
@@ -58,6 +58,7 @@ const SignupPage = () => {
           name="id"
           type="text"
           label="ID"
+          line={true}
           onChange={formik.handleChange}
           value={formik.values.id}
           error={formik.touched.id && formik.errors.id ? true : false}
@@ -69,6 +70,7 @@ const SignupPage = () => {
           name="password"
           type="password"
           label="PASSWORD"
+          line={true}
           onChange={formik.handleChange}
           value={formik.values.password}
           error={
@@ -83,6 +85,7 @@ const SignupPage = () => {
           name="email"
           type="email"
           label="EMAIL"
+          line={true}
           onChange={formik.handleChange}
           value={formik.values.email}
           error={formik.touched.email && formik.errors.email ? true : false}
@@ -109,7 +112,6 @@ const SignupPage = () => {
             id="tel1"
             name="tel1"
             type="text"
-            line={false}
             onChange={formik.handleChange}
             value={formik.values.tel1}
             ref={tel1Ref}
@@ -119,7 +121,6 @@ const SignupPage = () => {
             id="tel2"
             name="tel2"
             type="text"
-            line={false}
             onChange={formik.handleChange}
             value={formik.values.tel2}
             ref={tel2Ref}
@@ -129,7 +130,6 @@ const SignupPage = () => {
             id="tel3"
             name="tel3"
             type="text"
-            line={false}
             onChange={formik.handleChange}
             value={formik.values.tel3}
             ref={tel3Ref}

@@ -1,10 +1,23 @@
 import { PropTypes } from "prop-types";
 import css from "./Container.module.scss";
+import { useOutletContext } from "react-router-dom";
+import { forwardRef } from "react";
 
-export default function Container({ children, ...rest }) {
-  return <main {...rest} className={css.container}>{children}</main>;
-}
+const Container = forwardRef(function Container({ children, ...rest }, ref) {
+  const { isOpenLnb } = useOutletContext();
+  return (
+    <main
+      {...rest}
+      className={`${css.container} ${isOpenLnb ? css.open : ""}`}
+      ref={ref}
+    >
+      {children}
+    </main>
+  );
+});
 
 Container.propTypes = {
   children: PropTypes.any,
 };
+
+export default Container;
