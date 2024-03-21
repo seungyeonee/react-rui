@@ -1,6 +1,6 @@
 .wrapper {
-  position: relative;
   display: inline-block;
+  position: relative;
   border-radius: 5px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -10,14 +10,14 @@
     margin-left: 5px;
   }
   .combobox {
+    padding: 0.6rem 0.7rem;
+    border: 2px solid #ddd;
     position: relative;
     width: fit-content;
     min-width: 200px;
-    font-size: 1rem;
-    padding: 0.6rem 0.7rem;
-    text-align: left;
     height: 40px;
-    border: 2px solid #ddd;
+    font-size: 1rem;
+    text-align: left;
     cursor: pointer;
     border-radius: 0.4rem;
     -webkit-border-radius: 0.4rem;
@@ -25,9 +25,9 @@
     -ms-border-radius: 0.4rem;
     -o-border-radius: 0.4rem;
     &.open {
+      border-color: #8c7ce9;
       filter: brightness(95%);
       -webkit-filter: brightness(95%);
-      border-color: #8c7ce9;
     }
     &:hover {
       filter: brightness(95%);
@@ -35,14 +35,14 @@
     }
     &::after {
       position: absolute;
-      content: "";
-      right: 12px;
       top: 50%;
+      right: 12px;
       width: 12px;
       height: 8px;
-      background-size: contain;
-      background-repeat: no-repeat;
       background-image: url(../../assets/icons/arrow.svg);
+      background-repeat: no-repeat;
+      background-size: contain;
+      content: "";
       transform-origin: top center;
       transform: translateY(-50%);
       -webkit-transform: translateY(-50%);
@@ -63,28 +63,29 @@
   }
 
   .options {
-    position: absolute;
-    left: 0;
-    top: calc(100% + 5px);
-    width: 100%;
-    padding: 0;
-    margin: 0;
     display: flex;
     flex-direction: column;
-    list-style: none;
+    margin: 0;
+    padding: 0;
     border: 1px solid #c0c0c0;
+    overflow: hidden;
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    list-style: none;
     border-radius: 0.4rem;
     -webkit-border-radius: 0.4rem;
     -moz-border-radius: 0.4rem;
     -ms-border-radius: 0.4rem;
     -o-border-radius: 0.4rem;
-    overflow: hidden;
     > li {
-      border: 0;
-      font-size: 1rem;
       padding: 0.6rem 0.7rem;
-      cursor: pointer;
+      border: 0;
       background-color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
       &:hover {
         filter: brightness(95%);
         -webkit-filter: brightness(95%);
