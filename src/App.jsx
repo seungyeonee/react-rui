@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import DefaultLayout from "./DefaultLayout";
-import { MainPage, ButtonPage, SignupPage, FramerPage, GsapPage, ScrollPage } from "./pages";
+import { MainPage, ButtonPage, SignupPage, FramerPage, GsapPage, ScrollPage, SwiperPage, CarouselPage } from "./pages";
 
 function App() {
   return (
@@ -12,8 +12,10 @@ function App() {
           <Route path="/button" element={<ButtonPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/framer" element={<FramerPage />} />
+          <Route path="/framer/carousel" element={<CarouselPage />} />
           <Route path="/gsap" element={<GsapPage />} />
           <Route path="/gsap/scroll" element={<ScrollPage />} />
+          <Route path="/swiper" element={<SwiperPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

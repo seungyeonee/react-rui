@@ -28,5 +28,7 @@ export { default as ButtonPage } from "./button";
 // ETC
 export { default as SignupPage } from "./signup";
 export { default as FramerPage } from "./framer";
+export { default as CarouselPage } from "./framer/carousel";
 export { default as GsapPage } from "./gsap";
 export { default as ScrollPage } from "./gsap/scroll";
+export { default as SwiperPage } from "./swiper";
