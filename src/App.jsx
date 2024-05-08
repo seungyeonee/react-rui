@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import DefaultLayout from "./DefaultLayout";
-import { MainPage, ButtonPage, SignupPage, FramerPage, GsapPage, ScrollPage, SwiperPage, CarouselPage } from "./pages";
+import { MainPage, ButtonPage, SignupPage, FramerPage, GsapPage, ScrollPage, SwiperPage, CarouselPage, LottiPage } from "./pages";
 
 function App() {
   return (
@@ -16,6 +16,7 @@ function App() {
           <Route path="/gsap" element={<GsapPage />} />
           <Route path="/gsap/scroll" element={<ScrollPage />} />
           <Route path="/swiper" element={<SwiperPage />} />
+          <Route path="/lotti" element={<LottiPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

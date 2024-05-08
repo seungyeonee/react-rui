@@ -12,6 +12,7 @@ import {
   Box,
   Tooltip,
   Toast,
+  Dialog
 } from "../components";
 
 const mockData = [
@@ -37,6 +38,7 @@ export default function MainPage() {
   const [text2, setText2] = useState("");
   const [isFocus, setIsFocus] = useState(false);
   const [isOpenToast, setIsOpenToast] = useState(false);
+  const [isOpenDialog, setIsOpenDialog] = useState(false);
   const inputRef = useRef();
   const inputRef2 = useRef();
   const selectRef = useRef();
@@ -48,7 +50,7 @@ export default function MainPage() {
     <>
       <Container>
         <h3>Button</h3>
-        <Button>버튼</Button>
+        <Button onClick={()=>{setIsOpenDialog(true)}}>버튼</Button>
         <Button line>버튼</Button>
 
         <hr />
@@ -207,6 +209,7 @@ export default function MainPage() {
           )}
         </Box>
       </Container>
+      <Dialog />
     </>
   );
 }

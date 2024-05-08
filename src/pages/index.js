@@ -32,3 +32,4 @@ export { default as CarouselPage } from "./framer/carousel";
 export { default as GsapPage } from "./gsap";
 export { default as ScrollPage } from "./gsap/scroll";
 export { default as SwiperPage } from "./swiper";
+export { default as LottiPage } from "./lotti";

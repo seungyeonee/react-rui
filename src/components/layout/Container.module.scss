@@ -6,6 +6,7 @@
   -moz-transition: transform 0.3s ease;
   -ms-transition: transform 0.3s ease;
   -o-transition: transform 0.3s ease;
+  min-height: 100svh;
   &.open {
     transform: translateX(182px);
     -webkit-transform: translateX(182px);
