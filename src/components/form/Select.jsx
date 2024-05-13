@@ -1,92 +1,67 @@
-import { forwardRef, useState, useEffect, useRef } from "react";
-import { arrayOf, shape, string, any } from "prop-types";
+import React, { useState, useRef, useEffect } from "react";
+import { PropTypes } from "prop-types";
 import css from "./Select.module.scss";
+import useOutsideClick from "../../hooks/useOutsideClick";
+import useKeyPress from "../../hooks/useKeyPress";
 
-const Select = forwardRef(function Select(
-  { data, defaultValue, value, onChange, ...rest },
-  ref
-) {
+const Select = ({ label, value, children, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedValue, setSelectedValue] = useState(
-    value !== undefined
-      ? data.find((item) => item.value === value)?.label
-      : data.find((item) => item.value === defaultValue)?.label || data[0].value
-  );
-  const selectWrapRef = useRef(null);
-
-  const handleOptionClick = (e, index) => {
-    e.preventDefault();
-    setIsOpen(false);
-    const newValue = data[index].value;
-    setSelectedValue(newValue);
-    onChange && onChange(newValue);
-  };
-
+  const selectRef = useRef(null);
+  const inputRefs = useRef([]);
+  const isOutsideClick = useOutsideClick(selectRef);
+  const keyPress = useKeyPress();
   useEffect(() => {
-    const handleOutsideClick = (event) => {
-      if (
-        selectWrapRef.current &&
-        !selectWrapRef.current.contains(event.target)
-      ) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener("click", handleOutsideClick);
-
-    return () => {
-      document.removeEventListener("click", handleOutsideClick);
-    };
-  }, []);
-
+    if (isOutsideClick === true) {
+      setIsOpen(false);
+    }
+  }, [isOutsideClick]);
+  useEffect(() => {
+    if (keyPress === "Enter" && document.activeElement === selectRef.current) {
+      setIsOpen(true);
+      setTimeout(() => {
+        inputRefs.current[0].current.focus();
+      }, 10);
+    } else if (keyPress === "Tab" && isOpen) {
+      setIsOpen(false);
+    }
+  }, [keyPress]);
   return (
-    <div className={css.wrapper} ref={selectWrapRef}>
-      <button
+    <>
+      <div
         className={`${css.combobox} ${isOpen ? css.open : ""}`}
         role="combobox"
-        aria-expanded={isOpen}
-        type="button"
+        tabIndex={0}
         onClick={() => {
           setIsOpen(!isOpen);
         }}
-        {...rest}
+        ref={selectRef}
       >
-        {data.find((item) => item.value === selectedValue)?.label}
-      </button>
-      <input
-        tabIndex={-1}
-        aria-hidden={true}
-        value={selectedValue}
-        type="hidden"
-        ref={ref}
-      />
-      {isOpen && (
-        <ul className={css.options}>
-          {data.map((option, index) => (
-            <li
-              value={option.value}
-              key={option.value}
-              onClick={(e) => handleOptionClick(e, index)}
-            >
-              {option.label}
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+        {label && (
+          <div className="select-label" onClick={onChange}>
+            {value ? value : label}
+          </div>
+        )}
+        <div className={`${css.options} ${isOpen ? css.open : ""}`}>
+          {React.Children.map(children, (child, index) => {
+            inputRefs.current[index] =
+              inputRefs.current[index] || React.createRef();
+            return React.cloneElement(child, {
+              onClick: onChange,
+              selected: child.props.children === value ? true : false,
+              ref: inputRefs.current[index],
+            });
+          })}
+        </div>
+      </div>
+    </>
   );
-});
+};
 
 Select.propTypes = {
-  data: arrayOf(
-    shape({
-      label: string,
-      value: string,
-    })
-  ).isRequired,
-  defaultValue: any,
-  value: any,
-  onChange: any,
+  label: PropTypes.any,
+  value: PropTypes.any,
+  onChange: PropTypes.any,
+  children: PropTypes.any,
 };
 
 export default Select;

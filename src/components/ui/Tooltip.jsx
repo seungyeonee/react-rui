@@ -98,7 +98,8 @@ export default function Tooltip({
       }}
       ref={wrapperRef}
     >
-      <label
+      <div
+        role="tooltip"
         className={css.label}
         onClick={() => {
           setIsOpen(!isOpen);
@@ -106,7 +107,7 @@ export default function Tooltip({
         ref={labelRef}
       >
         {label}
-      </label>
+      </div>
       {isOpen && (
         <div
           className={`${css.tooltip} ${position ? css[position] : ""} ${

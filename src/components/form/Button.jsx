@@ -1,19 +1,23 @@
 import { PropTypes } from "prop-types";
 import css from "./Button.module.scss";
+import { forwardRef } from "react";
 
-export default function Button({
-  slots,
-  line,
-  type,
-  size,
-  href,
-  disabled,
-  children,
-  onClick,
-  flex,
-  spacing,
-  ...rest
-}) {
+const Button = forwardRef(function Button(
+  {
+    slots,
+    line,
+    type,
+    size,
+    href,
+    disabled,
+    children,
+    onClick,
+    flex,
+    spacing,
+    ...rest
+  },
+  ref
+) {
   const Wrapper = slots;
   const handleClick = () => {
     if (disabled) return;
@@ -33,7 +37,6 @@ export default function Button({
   };
   return (
     <Wrapper
-      {...rest}
       className={`${css.btn} ${disabled ? css.disabled : ""} ${
         size ? css[size] : ""
       } ${line && css.line}`}
@@ -41,11 +44,15 @@ export default function Button({
       onClick={handleClick}
       disabled={disabled}
       style={{ flex: flex && flex, marginTop: spacing && spacing }}
+      ref={ref}
+      {...rest}
     >
       {children}
     </Wrapper>
   );
-}
+});
+
+export default Button;
 
 Button.propTypes = {
   children: PropTypes.string.isRequired,

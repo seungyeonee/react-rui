@@ -6,7 +6,7 @@ export default function TabPanel({ tabName, isSelected, ...rest }) {
     <div
       id={`tabpanel-${tabName}`}
       role="tabpanel"
-      className={css.contents}
+      className={`${css.contents} `}
       hidden={isSelected}
       aria-labelledby={`tab-${tabName}`}
       aria-hidden={isSelected}

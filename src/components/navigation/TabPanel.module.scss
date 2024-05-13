@@ -18,3 +18,13 @@
     font-size: 0.8rem;
   }
 }
+
+.contents{
+  min-width: 100%;
+  min-height: 50vw;
+  border-radius: 8px;
+  border:1px solid #eee;
+  & + .contents{
+    margin-left:10px;
+  }
+}

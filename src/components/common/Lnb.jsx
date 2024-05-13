@@ -2,9 +2,6 @@ import { PropTypes } from "prop-types";
 import css from "./Lnb.module.scss";
 
 const Lnb = ({ open, setOpen }) => {
-  const handleChange = (e) => {
-    setOpen(e.target.checked);
-  };
   return (
     <div className={`${css.lnb} ${open ? css.open : ""}`}>
       <nav>
@@ -13,13 +10,13 @@ const Lnb = ({ open, setOpen }) => {
         <a>MENU3</a>
         <a>MENU4</a>
       </nav>
-      <label htmlFor="toggle">
+      <button onClick={()=>{setOpen(!open)}} aria-label={`메뉴 ${open ? '닫기' : '열기'}`}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="hamburger-icon"
-          width="32"
-          height="32"
-          viewBox="0 0 64 64"
+          width="30"
+          height="30"
+          viewBox="0 0 60 60"
         >
           <rect
             className="top"
@@ -29,7 +26,7 @@ const Lnb = ({ open, setOpen }) => {
             ry="4"
             width="100%"
             height="8"
-            style={open ? {transform: 'rotate(45deg)', transformOrigin: '3px 20px'} : { transform: 'rotate(0)'}}
+            style={open ? {transform: 'rotate(45deg)', transformOrigin: '5px 20px'} : { transform: 'rotate(0)'}}
           />
           <rect
             className="middle"
@@ -49,16 +46,16 @@ const Lnb = ({ open, setOpen }) => {
             ry="4"
             width="100%"
             height="8"
-            style={open ? {transform: 'rotate(-45deg)', transformOrigin: '5px 44px'} : { transform: 'rotate(0)'}}
+            style={open ? {transform: 'rotate(-45deg)', transformOrigin: '1px 41px'} : { transform: 'rotate(0)'}}
           />
         </svg>
-        <input
+       {/*  <input
           id="toggle"
           name="toggle"
           type="checkbox"
           onChange={handleChange}
-        />
-      </label>
+        /> */}
+      </button>
     </div>
   );
 };

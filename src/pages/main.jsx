@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   Button,
   Badge,
@@ -9,52 +9,80 @@ import {
   FormControl,
   TextField,
   Select,
+  Option,
   Box,
   Tooltip,
   Toast,
-  Dialog
+  Dialog,
+  BottomSheet,
 } from "../components";
 
-const mockData = [
+const tabsData = [
   {
-    label: "Option 1",
-    value: "a",
+    id: 0,
+    title: "Menu1",
+    content: "Contents1",
   },
   {
-    label: "Option 2",
-    value: "v",
+    id: 1,
+    title: "Menu2",
+    content: "Contents2",
   },
   {
-    label: "Option 3",
-    value: "b",
+    id: 2,
+    title: "Menu3",
+    content: "Contents3",
   },
 ];
 
 export default function MainPage() {
-  const [activeTabName, setActiveTabName] = useState("tab1");
+  const [activeMenu, setActiveMenu] = useState(0);
   const [count, setCount] = useState(2);
-  const [value, setValue] = useState();
   const [text, setText] = useState("");
   const [text2, setText2] = useState("");
+
+  const [selectedValue, setSelectedValue] = useState("");
+
+  const handleChange = (event) => {
+    setSelectedValue(event.target.textContent);
+  };
+
   const [isFocus, setIsFocus] = useState(false);
   const [isOpenToast, setIsOpenToast] = useState(false);
   const [isOpenDialog, setIsOpenDialog] = useState(false);
+  const [isOpenBottom, setIsOpenBottom] = useState(false);
   const inputRef = useRef();
   const inputRef2 = useRef();
-  const selectRef = useRef();
 
-  // useEffect(() => {
-  //   console.log(inputRef);
-  // }, [inputRef]);
+  const buttonRef = useRef();
+  useEffect(() => {
+    if (!isOpenDialog && document.activeElement !== buttonRef.current) {
+      buttonRef?.current?.focus();
+    }
+  }, [isOpenDialog]);
   return (
     <>
-      <Container>
-        <h3>Button</h3>
-        <Button onClick={()=>{setIsOpenDialog(true)}}>버튼</Button>
-        <Button line>버튼</Button>
+      <Container aria-hidden={isOpenDialog || isOpenToast ? true : false}>
+        <h2>Button</h2>
+        <Button
+          ref={buttonRef}
+          onClick={() => {
+            setIsOpenDialog(true);
+          }}
+        >
+          버튼
+        </Button>
+        <Button
+          line
+          onClick={() => {
+            setIsOpenBottom(true);
+          }}
+        >
+          버튼
+        </Button>
 
         <hr />
-        <h3>Badge + Button</h3>
+        <h2>Badge + Button</h2>
         <Badge count={count} component={<Button>버튼</Button>} />
         <br />
         <button
@@ -73,56 +101,41 @@ export default function MainPage() {
           ▼
         </button>
         <hr />
-        <h3>Tabs, Tab, TabPanel</h3>
+        <h2>Tabs, Tab, TabPanel</h2>
         <Tabs label="sample-tab-menu">
-          <Tab
-            tabName="tab1"
-            isSelected={activeTabName === "tab1" ? true : false}
-            onClick={() => {
-              setActiveTabName("tab1");
-            }}
-          >
-            tab1
-          </Tab>
-          <Tab
-            tabName="tab2"
-            isSelected={activeTabName === "tab2" ? true : false}
-            onClick={() => {
-              setActiveTabName("tab2");
-            }}
-          >
-            tab2
-          </Tab>
-          <Tab
-            tabName="tab3"
-            isSelected={activeTabName === "tab3" ? true : false}
-            onClick={() => {
-              setActiveTabName("tab3");
-            }}
-          >
-            tab3
-          </Tab>
+          {tabsData.map((item) => (
+            <Tab
+              tabName={`tab${item.id}`}
+              isSelected={item.id === activeMenu ? true : false}
+              onClick={() => {
+                setActiveMenu(item.id);
+              }}
+              key={item.id}
+            >
+              {item.title}
+            </Tab>
+          ))}
         </Tabs>
-        <TabPanel
-          tabName="tab1"
-          isSelected={activeTabName === "tab1" ? false : true}
-        >
-          TabPanel1
-        </TabPanel>
-        <TabPanel
-          tabName="tab2"
-          isSelected={activeTabName === "tab2" ? false : true}
-        >
-          TabPanel2
-        </TabPanel>
-        <TabPanel
-          tabName="tab3"
-          isSelected={activeTabName === "tab3" ? false : true}
-        >
-          TabPanel3
-        </TabPanel>
+        <div style={{ overflow: "hidden" }}>
+          <div
+            style={{
+              display: "flex",
+              marginTop: 10,
+              transform: `translateX(calc(-${activeMenu * 100}% - ${
+                activeMenu * 10
+              }px))`,
+              transition: "transform .3s ease",
+            }}
+          >
+            {Array.from({ length: 3 }, (_, i) => i).map((item, index) => (
+              <TabPanel tabName={`tab${index}`} key={index}>
+                {item}
+              </TabPanel>
+            ))}
+          </div>
+        </div>
         <hr />
-        <h3>FormControl, TextField</h3>
+        <h2>FormControl, TextField</h2>
         <FormControl
           label="labelText"
           icon="close"
@@ -137,10 +150,13 @@ export default function MainPage() {
             setIsFocus(false);
           }}
           helperText="helperText"
+          htmlFor="text1"
         >
           <TextField
+            id="text1"
             name="text1"
             type="text"
+            aria-label="text1"
             maxLength={6}
             value={text}
             onChange={(e) => {
@@ -152,6 +168,7 @@ export default function MainPage() {
           <TextField
             name="text2"
             type="text"
+            aria-label="text2"
             maxLength={6}
             value={text2}
             onChange={(e) => {
@@ -161,26 +178,21 @@ export default function MainPage() {
           />
         </FormControl>
         <hr />
-        <h3>Box + Select + Button</h3>
-        <Box>
+        <h2>Box + Select + Button</h2>
+        <FormControl>
           <Select
-            data={mockData}
-            defaultValue={1}
-            value={value}
-            onChange={setValue}
-            ref={selectRef}
-          />
-          <Button
-            onClick={() => {
-              alert(selectRef.current.value, value);
-            }}
+            label="Select an option"
+            value={selectedValue}
+            onChange={handleChange}
           >
-            SUBMIT
-          </Button>
-        </Box>
+            <Option value={10}>Option 1</Option>
+            <Option value={20}>Option 2</Option>
+            <Option value={30}>Option 3</Option>
+          </Select>
+        </FormControl>
         <hr />
-        <h3>Tooltip</h3>
-        <h4>{`label="label Text1" position="top" contents={<div>??</div>}`}</h4>
+        <h2>Tooltip</h2>
+        <h3>{`label="label Text1" position="top" contents={<div>??</div>}`}</h3>
         <Box>
           <Tooltip
             label="label Text1"
@@ -189,8 +201,8 @@ export default function MainPage() {
           />
         </Box>
         <hr />
-        <h3>Toast</h3>
-        <h4>{`position="bottom" timer={3000}`}</h4>
+        <h2>Toast</h2>
+        <h3>{`position="bottom" timer={3000}`}</h3>
         <Box>
           <Button
             onClick={() => {
@@ -209,7 +221,22 @@ export default function MainPage() {
           )}
         </Box>
       </Container>
-      <Dialog />
+      {isOpenDialog && (
+        <Dialog
+          title="다이얼로그 타이틀"
+          isOpen={isOpenDialog}
+          onClose={() => {
+            setIsOpenDialog(false);
+          }}
+        >
+          <p>다이얼로그 컨텐츠</p>
+        </Dialog>
+      )}
+      {isOpenBottom && (
+        <BottomSheet title="title text" onClose={() => {}}>
+          BottomSheet test
+        </BottomSheet>
+      )}
     </>
   );
 }

@@ -10,6 +10,7 @@ export default function FormControl({
   helperText,
   icon,
   iconPosition,
+  htmlFor,
   children,
   ...rest
 }) {
@@ -22,7 +23,7 @@ export default function FormControl({
         style={{ marginTop: spacing && spacing }}
         {...rest}
       >
-        {label && <label>{label}</label>}
+        {label && <label htmlFor={htmlFor}>{label}</label>}
         <div className={css.contents}>
           {icon && iconPosition === "left" && (
             <span className={`${css.icon} ${css.left}`} />
@@ -48,5 +49,6 @@ FormControl.propTypes = {
   helperText: PropTypes.string,
   icon: PropTypes.string,
   iconPosition: PropTypes.string,
+  htmlFor: PropTypes.string,
   children: PropTypes.any,
 };
