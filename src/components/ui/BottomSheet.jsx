@@ -1,25 +1,32 @@
 import { PropTypes } from "prop-types";
 import css from "./BottomSheet.module.scss";
+import { forwardRef, useEffect } from "react";
 
-export default function BottomSheet({ count, color, component, ...props }) {
+const BottomSheet = forwardRef(function BottomSheet(
+  { children, onClose, ...rest },
+  ref
+) {
+  useEffect(() => {
+    document.body.style.overflowY = "hidden";
+    return () => {
+      document.body.style.overflowY = "auto";
+    };
+  }, []);
   return (
     <div className={css.wrapper}>
-      {component}
-      {count > 0 && (
-        <span
-          className={css.bottomsheet}
-          style={{ backgroundColor: color && color }}
-          {...props}
-        >
-          {count}
-        </span>
-      )}
+      <div className={css.box} {...rest} ref={ref}>
+        {children}
+        <button className={css.close} onClick={onClose}>
+          닫기
+        </button>
+      </div>
     </div>
   );
-}
+});
 
 BottomSheet.propTypes = {
-  count: PropTypes.number,
-  color: PropTypes.string,
-  component: PropTypes.element.isRequired,
+  onClose: PropTypes.func,
+  children: PropTypes.any.isRequired,
 };
+
+export default BottomSheet;

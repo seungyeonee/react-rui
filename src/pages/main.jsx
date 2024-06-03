@@ -233,8 +233,8 @@ export default function MainPage() {
         </Dialog>
       )}
       {isOpenBottom && (
-        <BottomSheet title="title text" onClose={() => {}}>
-          BottomSheet test
+        <BottomSheet title="title text" onClose={() => {setIsOpenBottom(false)}}>
+          <div>BottomSheet test</div>
         </BottomSheet>
       )}
     </>

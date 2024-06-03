@@ -1,16 +1,11 @@
 import { PropTypes } from "prop-types";
 import css from "./Toast.module.scss";
-import { useEffect, useState } from "react";
-import { bodyScroll } from "../../utils/common";
+import { useEffect } from "react";
 
 export default function Toast({ label, onChange, timer, position, ...rest }) {
-  const [animate, setAnimate] = useState(false);
   const handleClose = () => {
-    setAnimate(true);
     setTimeout(() => {
-      setAnimate(false);
       onChange && onChange(false);
-      bodyScroll(true);
     }, 300);
   };
 
@@ -21,17 +16,17 @@ export default function Toast({ label, onChange, timer, position, ...rest }) {
         clearTimeout(animateTimeout);
       }, timer);
     }
-    bodyScroll(false);
   }, []);
   return (
-    <div
-      className={`${css.toast} ${css[position]} ${
-        animate ? css["fade-out"] : ""
-      }`}
-      {...rest}
-    >
-      <strong>{label}</strong>
-      <button onClick={handleClose}></button>
+    <div className={css.wrap}>
+      <div
+        className={`${css.toast} ${css[position]}`}
+        style={{ animation: `slideUp`}}
+        {...rest}
+      >
+        <strong>{label}</strong>
+        <button onClick={handleClose}></button>
+      </div>
     </div>
   );
 }

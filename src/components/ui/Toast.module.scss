@@ -1,45 +1,41 @@
-.toast {
+.wrap{
   position: fixed;
-  left: 50%;
+  top:0;
+  left: 0;
+  width:100vw;
+  height: 100vh;
+}
+.toast {
   display: inline-flex;
   align-items: center;
+  padding: 0.4rem 0.8rem;
+  position: absolute;
+  left: 50%;
+  z-index: 1;
   width: max-content;
   max-width: 200px;
-  padding: 0.4rem 0.8rem;
+  background-color: #333;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #fff;
+  animation: slideUp 0.3s forwards linear;
+  -webkit-animation: slideUp 0.3s forwards linear;
   border-radius: 1rem;
   -webkit-border-radius: 1rem;
   -moz-border-radius: 1rem;
   -ms-border-radius: 1rem;
   -o-border-radius: 1rem;
-  background-color: #333;
-  color: #fff;
-  font-weight: bold;
-  font-size: 0.8rem;
-  z-index: 1;
-  transform: translateX(-50%);
-  -webkit-transform: translateX(-50%);
-  -moz-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  -o-transform: translateX(-50%);
-  transition: all 0.3s ease;
-  -webkit-transition: all 0.3s ease;
-  -moz-transition: all 0.3s ease;
-  -ms-transition: all 0.3s ease;
-  -o-transition: all 0.3s ease;
-  opacity: 0;
-  animation: fadeIn 0.3s forwards linear;
-  -webkit-animation: fadeIn 0.3s forwards linear;
   button {
+    margin-left:8px;
+    border: 0;
     width: 20px;
     height: 20px;
-    margin-left:8px;
+    background-color: #999;
     border-radius: 50%;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
-    border: 0;
-    background-color: #999;
   }
   &.bottom {
     bottom: 10px;
@@ -47,26 +43,46 @@
   &.top {
     top: 10px;
   }
-  &.fade-out {
-    animation: fadeOut 0.3s forwards linear;
-    -webkit-animation: fadeOut 0.3s forwards linear;
+  &.slide-down {
+    animation: slideDown 0.3s forwards ease-in-out;
+    -webkit-animation: slideDown 0.3s forwards ease-in-out;
   }
 }
 
-@keyframes fadeIn {
+@keyframes slideUp {
   from {
     opacity: 0;
+    transform: translate(-50%, 100%);
+    -webkit-transform: translate(-50%, 100%);
+    -moz-transform: translate(-50%, 100%);
+    -ms-transform: translate(-50%, 100%);
+    -o-transform: translate(-50%, 100%);
   }
   to {
     opacity: 1;
+    transform: translate(-50%, 0%);
+    -webkit-transform: translate(-50%, 0%);
+    -moz-transform: translate(-50%, 0%);
+    -ms-transform: translate(-50%, 0%);
+    -o-transform: translate(-50%, 0%);
   }
 }
 
-@keyframes fadeOut {
+@keyframes slideDown {
   from {
     opacity: 1;
+    transform: translate(-50%, 0%);
+    -webkit-transform: translate(-50%, 0%);
+    -moz-transform: translate(-50%, 0%);
+    -ms-transform: translate(-50%, 0%);
+    -o-transform: translate(-50%, 0%);
   }
   to {
     opacity: 0;
+    transform: translate(-50%, 100%);
+    -webkit-transform: translate(-50%, 100%);
+    -moz-transform: translate(-50%, 100%);
+    -ms-transform: translate(-50%, 100%);
+    -o-transform: translate(-50%, 100%);
   }
 }

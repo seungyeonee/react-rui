@@ -1,5 +1,5 @@
 export function bodyScroll(isBlock) {
-  document.body.style.overflow = isBlock ? "auto" : "hidden";
+  document.body.style.overflowY = isBlock ? "scroll" : "hidden";
 }
 
 function curry(func) {

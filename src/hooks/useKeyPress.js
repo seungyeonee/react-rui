@@ -5,7 +5,9 @@ const useKeyPress = () => {
 
   useEffect(() => {
     const handleKeyDown = (event) => {
+      event.preventDefault();
       const { key } = event;
+      console.log(key)
       if (
         key === "Enter" ||
         key === "Tab" ||
